@@ -32,44 +32,33 @@ export function HomeHero() {
       />
 
       <div className="container-tai relative text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="chip mx-auto"
-        >
+        <span className="chip mx-auto rise">
           <Sparkles className="h-4 w-4 text-[var(--color-accent)]" />
           {HERO.eyebrow}
-        </motion.span>
+        </span>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05 }}
-          className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-[1.05] md:text-6xl lg:text-7xl"
+        <h1
+          className="rise mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-[1.05] md:text-6xl lg:text-7xl"
+          style={{ animationDelay: "0.05s" }}
         >
           Where are you on your{" "}
           <span className="text-gradient">TEFL journey?</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.12 }}
-          className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted)] md:text-lg"
+        <p
+          className="rise mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted)] md:text-lg"
+          style={{ animationDelay: "0.12s" }}
         >
           {HERO.subtitle}
-        </motion.p>
+        </p>
 
         <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
           {HERO.paths.map((p, i) => (
-            <motion.a
+            <a
               key={p.key}
               href={p.href}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-              className="ring-card surface-card group flex flex-col gap-3 p-6 text-left"
+              className="ring-card surface-card rise group flex flex-col gap-3 p-6 text-left"
+              style={{ animationDelay: `${0.2 + i * 0.1}s` }}
             >
               <h3 className="text-lg font-semibold text-[var(--color-ink)]">
                 {p.title}
@@ -81,7 +70,7 @@ export function HomeHero() {
                 {p.cta}
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </span>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>

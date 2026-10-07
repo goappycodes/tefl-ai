@@ -103,9 +103,9 @@ export function Header() {
                                 <li key={t.slug}>
                                   <Link
                                     href={`/${t.slug}`}
-                                    className="group flex items-start gap-2.5 rounded-xl px-2 py-2 transition hover:bg-white/5"
+                                    className="group flex items-center gap-2.5 rounded-xl px-2 py-2 transition hover:bg-white/5"
                                   >
-                                    <span className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-lg bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
+                                    <span className="flex h-7 w-7 flex-none items-center justify-center rounded-lg bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
                                       <ToolIcon name={t.icon} className="h-4 w-4" />
                                     </span>
                                     <span className="text-sm font-medium leading-tight text-[var(--color-muted)] group-hover:text-[var(--color-ink)]">

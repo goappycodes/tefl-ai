@@ -27,6 +27,7 @@ export function BlogCard({ post, featured = false }: { post: WpPost; featured?: 
             alt={post.image.alt}
             fill
             sizes={featured ? "(max-width:1024px) 100vw, 50vw" : "(max-width:768px) 100vw, 33vw"}
+            priority={featured}
             className="object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (

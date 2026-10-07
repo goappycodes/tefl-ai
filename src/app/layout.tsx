@@ -4,6 +4,7 @@ import "./globals.css";
 import { SITE } from "@/lib/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { NavProgress } from "@/components/layout/NavProgress";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -49,7 +50,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://tefl.ai" />
+        <link rel="dns-prefetch" href="https://tefl.ai" />
+      </head>
       <body>
+        <NavProgress />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-[var(--color-surface)] focus:px-4 focus:py-2"
