@@ -71,6 +71,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Reserve scrollbar space so locking body scroll (mobile menu) doesn't shift layout */
+  scrollbar-gutter: stable;
 }
 
 body {

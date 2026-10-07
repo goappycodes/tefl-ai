@@ -14,7 +14,7 @@ import {
 import { useAiTool } from "@/lib/useAiTool";
 import { ResultActions } from "@/components/tools/ResultActions";
 import { RadioCards } from "@/components/ui/form";
-import { COURSES, courseBySlug, enrolUrl, formatPrice, type Course } from "@/content/courses";
+import { COURSES, courseBySlug, courseUrl, formatPrice, type Course } from "@/content/courses";
 import type { CourseFinderResult } from "@/lib/tools/tefl-course-finder";
 
 type Q = {
@@ -161,7 +161,7 @@ function CourseCard({
           <div className="text-xs text-[var(--color-faint)]">{course.duration}</div>
         </div>
         <a
-          href={enrolUrl(course.productId)}
+          href={courseUrl(course.slug)}
           target="_blank"
           rel="noopener noreferrer"
           className={`btn ${primary ? "btn-primary" : "btn-ghost"}`}

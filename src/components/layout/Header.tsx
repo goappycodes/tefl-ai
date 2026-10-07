@@ -177,10 +177,12 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 top-16 z-[90] overflow-y-auto bg-[var(--color-bg)] px-5 pb-24 pt-4 lg:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: "transform, opacity" }}
+            className="fixed inset-0 top-16 z-[90] overflow-y-auto overscroll-contain bg-[rgba(6,9,18,0.98)] px-5 pb-24 pt-4 backdrop-blur-xl lg:hidden"
           >
             <nav className="flex flex-col gap-1">
               {PRIMARY_NAV.filter((i) => !i.mega).map((item) => (

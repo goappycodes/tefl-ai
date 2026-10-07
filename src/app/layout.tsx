@@ -27,8 +27,11 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   icons: {
-    icon: "/brand/favicon.png",
-    apple: "/brand/favicon.png",
+    icon: [
+      { url: "/brand/favicon-32.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/brand/favicon.jpg", sizes: "192x192", type: "image/jpeg" },
+    ],
+    apple: "/brand/favicon.jpg",
   },
   openGraph: {
     type: "website",
