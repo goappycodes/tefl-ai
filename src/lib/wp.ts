@@ -84,6 +84,27 @@ const decode = (html: string) =>
 
 const wordsOf = (html: string) => decode(html).split(/\s+/).filter(Boolean).length;
 
+/**
+ * Normalise WordPress inline styles for the dark theme. Blog content is authored
+ * with light-mode inline colours (e.g. color:#0f2233) that are invisible on our
+ * dark background. We drop inline text colours (so text inherits the readable
+ * prose palette) and swap any inline background for a subtle dark surface, so
+ * callout boxes and tables stay as cards instead of light-on-dark or invisible.
+ */
+function cleanContent(html: string): string {
+  return html.replace(/style="([^"]*)"/gi, (_m, css: string) => {
+    const out = css
+      .replace(/(^|;)\s*color\s*:[^;]*/gi, "$1")
+      .replace(/(^|;)\s*background(-color)?\s*:[^;]*/gi, "$1background: rgba(255,255,255,0.04)")
+      .replace(/(^|;)\s*border-color\s*:[^;]*/gi, "$1")
+      .replace(/(border(?:-(?:top|bottom|left|right))?\s*:\s*[^;]*?)#[0-9a-fA-F]{3,6}/gi, "$1#1e2a44")
+      .replace(/;{2,}/g, ";")
+      .replace(/^\s*;|;\s*$/g, "")
+      .trim();
+    return out ? `style="${out}"` : "";
+  });
+}
+
 function mapPost(raw: RawPost): WpPost {
   const emb = raw._embedded || {};
   const media = emb["wp:featuredmedia"]?.[0];
@@ -94,7 +115,7 @@ function mapPost(raw: RawPost): WpPost {
     slug: raw.slug,
     title: decode(raw.title.rendered),
     excerpt: decode(raw.excerpt.rendered),
-    content: raw.content.rendered,
+    content: cleanContent(raw.content.rendered),
     date: raw.date,
     modified: raw.modified,
     author: author?.name || "TEFL.ai",
@@ -169,7 +190,7 @@ export async function getPageBySlug(slug: string): Promise<WpPage | null> {
     id: p.id,
     slug: p.slug,
     title: decode(p.title.rendered),
-    content: p.content.rendered,
+    content: cleanContent(p.content.rendered),
     date: p.date,
     modified: p.modified,
   };
