@@ -17,6 +17,15 @@ import { HERO, STATS, TESTIMONIALS, FAQS } from "@/content/home";
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-36">
+      {/* glowing hero orb */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-10 -z-10 h-[460px] w-[560px] max-w-[92vw] -translate-x-1/2 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(58,208,248,0.22), rgba(139,116,255,0.14) 45%, transparent 70%)",
+        }}
+      />
       {/* floating sparkles */}
       <Sparkle
         size={28}

@@ -10,6 +10,7 @@
   /* Brand */
   --color-brand-cyan: #3ad0f8;
   --color-brand-blue: #2961f6;
+  --color-brand-violet: #8b74ff;
   --color-brand-ink: #0b1020;
   --color-brand-deep: #060912;
 
@@ -57,8 +58,8 @@
 /* ---- Base ------------------------------------------------------------------ */
 :root {
   color-scheme: dark;
-  --brand-gradient: linear-gradient(120deg, var(--color-brand-cyan) 0%, var(--color-brand-blue) 100%);
-  --brand-gradient-soft: linear-gradient(120deg, rgba(58, 208, 248, 0.16), rgba(41, 97, 246, 0.16));
+  --brand-gradient: linear-gradient(120deg, var(--color-brand-cyan) 0%, var(--color-brand-blue) 55%, var(--color-brand-violet) 100%);
+  --brand-gradient-soft: linear-gradient(120deg, rgba(58, 208, 248, 0.16), rgba(41, 97, 246, 0.14) 55%, rgba(139, 116, 255, 0.16));
 }
 
 * {
@@ -98,10 +99,31 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(60% 50% at 12% -5%, rgba(41, 97, 246, 0.18), transparent 60%),
-    radial-gradient(45% 45% at 95% 0%, rgba(58, 208, 248, 0.14), transparent 60%),
-    radial-gradient(50% 60% at 50% 110%, rgba(41, 97, 246, 0.12), transparent 60%),
+    radial-gradient(60% 50% at 12% -5%, rgba(41, 97, 246, 0.2), transparent 60%),
+    radial-gradient(45% 45% at 95% 0%, rgba(58, 208, 248, 0.16), transparent 60%),
+    radial-gradient(42% 50% at 78% 108%, rgba(139, 116, 255, 0.16), transparent 60%),
+    radial-gradient(50% 60% at 20% 112%, rgba(41, 97, 246, 0.12), transparent 60%),
     var(--color-bg);
+}
+
+/* Slow-drifting aurora layer — adds life + a tinge of colour site-wide */
+html::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(28% 28% at 22% 28%, rgba(139, 116, 255, 0.16), transparent 70%),
+    radial-gradient(26% 26% at 80% 58%, rgba(58, 208, 248, 0.14), transparent 70%),
+    radial-gradient(24% 30% at 55% 85%, rgba(41, 97, 246, 0.12), transparent 70%);
+  filter: blur(44px);
+  animation: tai-aurora 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes tai-aurora {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  100% { transform: translate3d(0, -3%, 0) rotate(7deg) scale(1.08); }
 }
 
 body::after {
@@ -131,10 +153,21 @@ body::after {
   }
 
   .text-gradient {
-    background: var(--brand-gradient);
+    background: linear-gradient(
+      110deg,
+      var(--color-brand-cyan),
+      var(--color-brand-blue),
+      var(--color-brand-violet),
+      var(--color-brand-cyan)
+    );
+    background-size: 220% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    animation: tai-gradient-shift 9s linear infinite;
+  }
+  @keyframes tai-gradient-shift {
+    to { background-position: 220% center; }
   }
 
   .surface-card {
@@ -165,7 +198,7 @@ body::after {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgba(58, 208, 248, 0.5), rgba(41, 97, 246, 0.12) 40%, transparent 70%);
+    background: linear-gradient(140deg, rgba(58, 208, 248, 0.55), rgba(41, 97, 246, 0.18) 42%, rgba(139, 116, 255, 0.4) 72%, transparent 90%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -174,7 +207,9 @@ body::after {
   }
   .ring-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 30px 70px -30px rgba(3, 10, 30, 0.95);
+    box-shadow: 0 30px 70px -30px rgba(3, 10, 30, 0.95),
+      0 0 32px -12px rgba(58, 208, 248, 0.35),
+      0 0 48px -18px rgba(139, 116, 255, 0.3);
   }
   .ring-card:hover::before { opacity: 1; }
 

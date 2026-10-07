@@ -134,7 +134,8 @@ export const lessonPlanGenerator: ToolHandler<LessonPlanInput, LessonPlanResult>
     });
 
     // One corrective retry if the model returned descriptions, not content.
-    if (FORBIDDEN.some((f) => new RegExp(f, "i").test(content))) {
+    const lower = content.toLowerCase();
+    if (FORBIDDEN.some((f) => lower.includes(f.toLowerCase()))) {
       const retryMessages = [
         ...messages,
         { role: "assistant" as const, content },
