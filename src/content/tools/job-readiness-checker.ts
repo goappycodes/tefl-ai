@@ -12,7 +12,7 @@ export const content: ToolLandingContent = {
     {
       icon: "ClipboardCheck",
       title: "Personalized Readiness Assessment",
-      desc: "Research current market needs and trending career opportunities across different industries and locations.",
+      desc: "Get a tailored readiness score across your resume, qualifications, interview prep and teaching know-how — see exactly where you stand.",
     },
     {
       icon: "Lightbulb",
