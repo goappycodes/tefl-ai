@@ -20,3 +20,15 @@ export function toolMetadata(slug: string): Metadata {
     twitter: { card: "summary_large_image", title, description },
   };
 }
+
+/** Metadata for the interactive tool page at /{slug}/tool. The landing at
+ *  /{slug} is the canonical SEO page, so this points its canonical there. */
+export function toolTryMetadata(slug: string): Metadata {
+  const tool = toolBySlug(slug);
+  if (!tool) return {};
+  return {
+    title: `${tool.title} — Try it now`,
+    description: tool.description,
+    alternates: { canonical: `/${slug}` },
+  };
+}
