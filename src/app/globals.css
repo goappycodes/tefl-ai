@@ -94,6 +94,21 @@ h1, h2, h3, h4, h5, .font-display {
   color: #fff;
 }
 
+/* Clickable things always show a pointer; keyboard focus is clearly visible */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary,
+label[for],
+select:not(:disabled),
+a[href] {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* Ambient page background: deep gradient + aurora blobs + fine grid */
 body::before {
   content: "";

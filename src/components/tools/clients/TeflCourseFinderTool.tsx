@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Icons from "lucide-react";
 import {
   Compass,
@@ -187,6 +187,22 @@ export function TeflCourseFinderTool() {
   const set = (k: keyof FormState, v: string) => setForm((f) => ({ ...f, [k]: v }));
   const complete = QUESTIONS.every((q) => form[q.key]);
 
+  const qRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const submitRef = useRef<HTMLButtonElement | null>(null);
+
+  // Select an answer, then gently scroll the next question (or submit) into view.
+  const selectAndAdvance = (i: number, key: keyof FormState, v: string) => {
+    set(key, v);
+    if (!v) return;
+    const target = i + 1 < QUESTIONS.length ? qRefs.current[i + 1] : submitRef.current;
+    if (target) {
+      window.setTimeout(
+        () => target.scrollIntoView({ behavior: "smooth", block: "center" }),
+        150
+      );
+    }
+  };
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!complete) return;
@@ -288,7 +304,13 @@ export function TeflCourseFinderTool() {
         </div>
 
         {QUESTIONS.map((q, i) => (
-          <div key={q.key} className="space-y-3">
+          <div
+            key={q.key}
+            ref={(el) => {
+              qRefs.current[i] = el;
+            }}
+            className="scroll-mt-24 space-y-3"
+          >
             <h3 className="flex items-start gap-2 text-sm font-medium text-[var(--color-ink)]">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--brand-gradient-soft)] text-xs font-semibold text-[var(--color-accent)]">
                 {i + 1}
@@ -299,14 +321,14 @@ export function TeflCourseFinderTool() {
               <RadioCards
                 name={q.key}
                 value={form[q.key]}
-                onChange={(v) => set(q.key, v)}
+                onChange={(v) => selectAndAdvance(i, q.key, v)}
                 options={q.options}
                 columns={q.options.length >= 3 ? 2 : 2}
               />
             ) : (
               <select
                 value={form[q.key]}
-                onChange={(e) => set(q.key, e.target.value)}
+                onChange={(e) => selectAndAdvance(i, q.key, e.target.value)}
                 className="input-tai cursor-pointer appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 fill=%22none%22 stroke=%22%23a6b2cf%22 stroke-width=%222%22><path d=%22M4 6l4 4 4-4%22/></svg>')] bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10"
               >
                 <option value="">Please select…</option>
@@ -321,9 +343,10 @@ export function TeflCourseFinderTool() {
         ))}
 
         <button
+          ref={submitRef}
           type="submit"
           disabled={!complete}
-          className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+          className="btn btn-primary w-full scroll-mt-24 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Sparkles className="h-4 w-4" />
           {complete ? "Get my recommendation" : "Answer all questions to continue"}

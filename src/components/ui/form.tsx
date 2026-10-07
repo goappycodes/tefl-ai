@@ -81,7 +81,7 @@ export function RadioCards<T extends string>({
 }) {
   const cols = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" }[columns];
   return (
-    <div className={`grid grid-cols-1 gap-2 ${cols}`} role="radiogroup">
+    <div className={`grid grid-cols-1 gap-2.5 ${cols}`} role="radiogroup">
       {options.map((o) => {
         const active = value === o.value;
         return (
@@ -90,14 +90,27 @@ export function RadioCards<T extends string>({
             key={o.value}
             onClick={() => onChange(o.value)}
             aria-pressed={active}
-            className={`rounded-xl border px-4 py-3 text-left text-sm transition ${
+            className={`group relative flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-all duration-200 ${
               active
-                ? "border-[var(--color-accent)] bg-[var(--brand-gradient-soft)] text-[var(--color-ink)]"
-                : "border-[var(--color-border)] bg-white/[0.03] text-[var(--color-muted)] hover:border-[var(--color-faint)]"
+                ? "border-[var(--color-accent)] bg-[rgba(58,208,248,0.12)] text-[var(--color-ink)] shadow-[0_0_0_1px_var(--color-accent),0_12px_30px_-14px_rgba(58,208,248,0.55)]"
+                : "border-[var(--color-border)] bg-white/[0.03] text-[var(--color-muted)] hover:-translate-y-0.5 hover:border-[rgba(58,208,248,0.55)] hover:bg-white/[0.06] hover:text-[var(--color-ink)]"
             }`}
           >
-            <span className="font-medium">{o.label}</span>
-            {o.desc && <span className="mt-0.5 block text-xs text-[var(--color-faint)]">{o.desc}</span>}
+            <span
+              className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                active ? "border-[var(--color-accent)]" : "border-[var(--color-faint)] group-hover:border-[var(--color-muted)]"
+              }`}
+            >
+              <span
+                className={`h-2.5 w-2.5 rounded-full bg-[var(--color-accent)] transition-transform duration-200 ${
+                  active ? "scale-100" : "scale-0"
+                }`}
+              />
+            </span>
+            <span className="flex-1">
+              <span className="block font-medium">{o.label}</span>
+              {o.desc && <span className="mt-0.5 block text-xs text-[var(--color-faint)]">{o.desc}</span>}
+            </span>
             <input type="radio" name={name} value={o.value} checked={active} readOnly className="sr-only" />
           </button>
         );
