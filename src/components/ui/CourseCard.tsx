@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import * as Icons from "lucide-react";
-import { type Course, enrolUrl, formatPrice } from "@/content/courses";
+import { type Course, courseUrl, enrolUrl, formatPrice } from "@/content/courses";
 
 function CIcon({ name, className }: { name: string; className?: string }) {
   const Cmp =
@@ -53,12 +52,12 @@ export function CourseCard({ course }: { course: Course }) {
       </div>
 
       <div className="mt-5 flex items-center gap-2">
-        <Link
-          href={`/courses/${course.slug}`}
+        <a
+          href={courseUrl(course.slug)}
           className="btn btn-ghost flex-1 !py-2.5 text-sm"
         >
           Learn more
-        </Link>
+        </a>
         <a href={enrolUrl(course.productId)} className="btn btn-primary flex-1 !py-2.5 text-sm">
           Enrol <ArrowRight className="h-4 w-4" />
         </a>

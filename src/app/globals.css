@@ -11,6 +11,7 @@
   --color-brand-cyan: #3ad0f8;
   --color-brand-blue: #2961f6;
   --color-brand-violet: #8b74ff;
+  --color-brand-green: #27d3a2;
   --color-brand-ink: #0b1020;
   --color-brand-deep: #060912;
 
@@ -60,6 +61,7 @@
   color-scheme: dark;
   --brand-gradient: linear-gradient(120deg, var(--color-brand-cyan) 0%, var(--color-brand-blue) 55%, var(--color-brand-violet) 100%);
   --brand-gradient-soft: linear-gradient(120deg, rgba(58, 208, 248, 0.16), rgba(41, 97, 246, 0.14) 55%, rgba(139, 116, 255, 0.16));
+  --green-gradient-soft: linear-gradient(120deg, rgba(39, 211, 162, 0.18), rgba(39, 211, 162, 0.08));
 }
 
 * {
@@ -138,6 +140,12 @@ body::after {
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
+  /* Subtle, seamless grid drift (moves exactly one cell, so it loops cleanly) */
+  animation: tai-grid-pan 42s linear infinite;
+}
+@keyframes tai-grid-pan {
+  from { background-position: 0 0; }
+  to   { background-position: 64px 64px; }
 }
 
 /* ---- Reusable utilities / components -------------------------------------- */
@@ -212,6 +220,17 @@ body::after {
       0 0 48px -18px rgba(139, 116, 255, 0.3);
   }
   .ring-card:hover::before { opacity: 1; }
+
+  /* Green variant — used for the "experienced teacher / jobs & careers" path */
+  .ring-card-green::before {
+    background: linear-gradient(140deg, rgba(39, 211, 162, 0.6), rgba(39, 211, 162, 0.16) 48%, transparent 85%);
+  }
+  .ring-card-green:hover {
+    box-shadow: 0 30px 70px -30px rgba(3, 10, 30, 0.95),
+      0 0 34px -12px rgba(39, 211, 162, 0.4),
+      0 0 52px -18px rgba(39, 211, 162, 0.28);
+  }
+  .accent-green { color: var(--color-brand-green); }
 
   /* Buttons */
   .btn {

@@ -103,6 +103,12 @@ export const COURSES: Course[] = [
 export const courseBySlug = (slug: string) =>
   COURSES.find((c) => c.slug === slug);
 
+/** The actual course page lives on WordPress (LearnDash LMS) — it is NOT
+ * rebuilt in Next.js. "Learn more" links out to the WP/commerce host. Swap the
+ * host to shop.tefl.ai later via NEXT_PUBLIC_CHECKOUT_BASE_URL. */
+export const courseUrl = (slug: string) =>
+  `${SITE.checkoutBase}/courses/${slug}/`;
+
 /** WooCommerce add-to-cart hand-off. Cart redirects straight to checkout
  * on the live store (see REBUILD-BLUEPRINT.md §4). Swap checkoutBase to
  * shop.tefl.ai later via NEXT_PUBLIC_CHECKOUT_BASE_URL. */

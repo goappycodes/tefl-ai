@@ -62,25 +62,30 @@ export function HomeHero() {
         </p>
 
         <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-          {HERO.paths.map((p, i) => (
-            <a
-              key={p.key}
-              href={p.href}
-              className="ring-card surface-card rise group flex flex-col gap-3 p-6 text-left"
-              style={{ animationDelay: `${0.2 + i * 0.1}s` }}
-            >
-              <h3 className="text-lg font-semibold text-[var(--color-ink)]">
-                {p.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
-                {p.text}
-              </p>
-              <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)]">
-                {p.cta}
-                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-              </span>
-            </a>
-          ))}
+          {HERO.paths.map((p, i) => {
+            const green = p.key === "experienced";
+            return (
+              <a
+                key={p.key}
+                href={p.href}
+                className={`ring-card surface-card rise group flex flex-col gap-3 p-6 text-left ${green ? "ring-card-green" : ""}`}
+                style={{ animationDelay: `${0.2 + i * 0.1}s` }}
+              >
+                <h3 className="text-lg font-semibold text-[var(--color-ink)]">
+                  {p.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                  {p.text}
+                </p>
+                <span
+                  className={`mt-2 inline-flex items-center gap-1.5 text-sm font-semibold ${green ? "accent-green" : "text-[var(--color-accent)]"}`}
+                >
+                  {p.cta}
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -57,7 +57,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
         scrolled
-          ? "border-b border-[var(--color-border)] bg-[rgba(6,9,18,0.82)] backdrop-blur-xl"
+          ? "border-b border-[var(--color-border)] bg-[rgba(6,9,18,0.96)] backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -92,7 +92,7 @@ export function Header() {
                       transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute left-1/2 top-full w-[min(92vw,860px)] -translate-x-1/2 pt-3"
                     >
-                      <div className="surface-glass grid grid-cols-3 gap-2 rounded-[var(--radius-lg)] p-4 shadow-[var(--shadow-card)]">
+                      <div className="grid grid-cols-3 gap-2 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[rgba(8,12,24,0.98)] p-4 shadow-[var(--shadow-card)] backdrop-blur-xl">
                         {GROUP_ORDER.map((g) => (
                           <div key={g} className="p-2">
                             <p className="mb-2 px-2 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-faint)]">

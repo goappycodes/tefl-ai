@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE, TOOLS } from "@/lib/site";
-import { COURSES } from "@/content/courses";
 import { getAllPostSlugs } from "@/lib/wp";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -34,12 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const courseRoutes = COURSES.map((c) => ({
-    url: `${base}/courses/${c.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  // Course detail/delivery pages live on WordPress (LearnDash) — not in this
+  // sitemap; WordPress serves its own for them.
 
   let postRoutes: MetadataRoute.Sitemap = [];
   try {
@@ -54,5 +49,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /* WP unreachable at build time — skip post URLs */
   }
 
-  return [...staticRoutes, ...toolRoutes, ...courseRoutes, ...postRoutes];
+  return [...staticRoutes, ...toolRoutes, ...postRoutes];
 }
