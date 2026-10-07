@@ -1,15 +1,11 @@
 import { toolBySlug } from "@/lib/site";
 import { toolMetadata } from "@/lib/toolMeta";
-import { ToolShell } from "@/components/tools/ToolShell";
-import { CountryEligibilityTool } from "@/components/tools/clients/CountryEligibilityTool";
+import { ToolLanding } from "@/components/tools/ToolLanding";
+import content from "@/content/tools/country-eligibility";
 
 export const metadata = toolMetadata("country-eligibility");
 
 export default function Page() {
   const tool = toolBySlug("country-eligibility")!;
-  return (
-    <ToolShell tool={tool}>
-      <CountryEligibilityTool />
-    </ToolShell>
-  );
+  return <ToolLanding content={content} tool={tool} />;
 }

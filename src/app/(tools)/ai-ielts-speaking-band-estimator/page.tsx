@@ -1,15 +1,11 @@
 import { toolBySlug } from "@/lib/site";
 import { toolMetadata } from "@/lib/toolMeta";
-import { ToolShell } from "@/components/tools/ToolShell";
-import { IeltsSpeakingBandTool } from "@/components/tools/clients/IeltsSpeakingBandTool";
+import { ToolLanding } from "@/components/tools/ToolLanding";
+import content from "@/content/tools/ai-ielts-speaking-band-estimator";
 
 export const metadata = toolMetadata("ai-ielts-speaking-band-estimator");
 
 export default function Page() {
   const tool = toolBySlug("ai-ielts-speaking-band-estimator")!;
-  return (
-    <ToolShell tool={tool}>
-      <IeltsSpeakingBandTool />
-    </ToolShell>
-  );
+  return <ToolLanding content={content} tool={tool} />;
 }

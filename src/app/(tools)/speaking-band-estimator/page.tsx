@@ -1,15 +1,11 @@
 import { toolBySlug } from "@/lib/site";
 import { toolMetadata } from "@/lib/toolMeta";
-import { ToolShell } from "@/components/tools/ToolShell";
-import { SpeakingBandTool } from "@/components/tools/clients/SpeakingBandTool";
+import { ToolLanding } from "@/components/tools/ToolLanding";
+import content from "@/content/tools/speaking-band-estimator";
 
 export const metadata = toolMetadata("speaking-band-estimator");
 
 export default function Page() {
   const tool = toolBySlug("speaking-band-estimator")!;
-  return (
-    <ToolShell tool={tool}>
-      <SpeakingBandTool />
-    </ToolShell>
-  );
+  return <ToolLanding content={content} tool={tool} />;
 }

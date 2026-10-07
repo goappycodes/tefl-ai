@@ -1,15 +1,11 @@
 import { toolBySlug } from "@/lib/site";
 import { toolMetadata } from "@/lib/toolMeta";
-import { ToolShell } from "@/components/tools/ToolShell";
-import { VlogScriptwriterTool } from "@/components/tools/clients/VlogScriptwriterTool";
+import { ToolLanding } from "@/components/tools/ToolLanding";
+import content from "@/content/tools/travel-vlog-scriptwriter";
 
 export const metadata = toolMetadata("travel-vlog-scriptwriter");
 
 export default function Page() {
   const tool = toolBySlug("travel-vlog-scriptwriter")!;
-  return (
-    <ToolShell tool={tool}>
-      <VlogScriptwriterTool />
-    </ToolShell>
-  );
+  return <ToolLanding content={content} tool={tool} />;
 }
