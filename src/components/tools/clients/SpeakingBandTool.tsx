@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { AudioLines, RefreshCw, AlertCircle, Loader2, Sparkles } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import { AudioRecorder, type AudioValue } from "@/components/tools/AudioRecorder";
 import type { SpeakingBandResult, SpeakingPrompt } from "@/lib/tools/speaking-band-estimator";
 
@@ -232,6 +233,7 @@ export function SpeakingBandTool() {
 
         {!loading && data && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div>
                 <h2 className="text-xl font-semibold">Spoken English Assessment</h2>

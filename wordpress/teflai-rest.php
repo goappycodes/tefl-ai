@@ -23,7 +23,56 @@ add_action( 'rest_api_init', function () {
 		),
 		'callback'            => 'teflai_rest_verify_certificate',
 	) );
+
+	// Current-user / session state for the headless front-end header.
+	register_rest_route( 'teflai/v1', '/me', array(
+		'methods'             => 'GET',
+		'permission_callback' => '__return_true',
+		'callback'            => 'teflai_rest_me',
+	) );
 } );
+
+/**
+ * Allowed-origin CORS for the teflai/v1 routes so the Next.js front-end can read
+ * session state with credentials. Set TEFLAI_ALLOWED_ORIGINS in wp-config.php
+ * (comma-separated) to add origins, e.g. the Vercel + production URLs.
+ */
+add_action( 'rest_api_init', function () {
+	remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
+	add_filter( 'rest_pre_serve_request', function ( $served ) {
+		$origin = get_http_origin();
+		$allowed = array( 'https://tefl.ai', 'https://www.tefl.ai', 'https://tefl-ai.vercel.app' );
+		if ( defined( 'TEFLAI_ALLOWED_ORIGINS' ) ) {
+			$allowed = array_merge( $allowed, array_map( 'trim', explode( ',', TEFLAI_ALLOWED_ORIGINS ) ) );
+		}
+		if ( $origin && in_array( $origin, $allowed, true ) ) {
+			header( 'Access-Control-Allow-Origin: ' . $origin );
+			header( 'Access-Control-Allow-Credentials: true' );
+			header( 'Vary: Origin' );
+			header( 'Access-Control-Allow-Methods: GET, OPTIONS' );
+			header( 'Access-Control-Allow-Headers: Content-Type, X-WP-Nonce' );
+		}
+		return $served;
+	} );
+}, 15 );
+
+/** Returns the logged-in user's basic profile (based on the WP auth cookie),
+ *  or { logged_in: false }. Read-only, no sensitive data. */
+function teflai_rest_me() {
+	if ( ! is_user_logged_in() ) {
+		return new WP_REST_Response( array( 'logged_in' => false ), 200 );
+	}
+	$u = wp_get_current_user();
+	$account = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : home_url( '/my-account/' );
+	return new WP_REST_Response( array(
+		'logged_in'    => true,
+		'display_name' => $u->display_name ?: $u->user_login,
+		'first_name'   => $u->first_name,
+		'avatar'       => get_avatar_url( $u->ID, array( 'size' => 48 ) ),
+		'account_url'  => $account,
+		'logout_url'   => wp_logout_url( home_url() ),
+	), 200 );
+}
 
 function teflai_rest_verify_certificate( WP_REST_Request $request ) {
 	$number = sanitize_text_field( (string) $request->get_param( 'number' ) );

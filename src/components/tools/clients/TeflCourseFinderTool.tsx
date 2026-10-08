@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import { RadioCards } from "@/components/ui/form";
 import { COURSES, courseBySlug, courseUrl, formatPrice, type Course } from "@/content/courses";
 import type { CourseFinderResult } from "@/lib/tools/tefl-course-finder";
@@ -235,6 +236,7 @@ export function TeflCourseFinderTool() {
 
     return (
       <div className="mx-auto max-w-5xl space-y-6">
+        <ScrollIntoViewOnMount />
         <div className="surface-card flex flex-wrap items-center justify-between gap-4 p-6">
           <div>
             <span className="eyebrow flex">

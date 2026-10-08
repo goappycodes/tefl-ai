@@ -1,15 +1,9 @@
 import Link from "next/link";
-import { Instagram, Youtube, Twitter, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Sparkle } from "@/components/ui/Sparkle";
 import { FOOTER_NAV, ACCREDITATIONS, SITE } from "@/lib/site";
 import { NewsletterForm } from "./NewsletterForm";
-
-const socialIcon: Record<string, React.ComponentType<{ className?: string }>> = {
-  Instagram,
-  "Twitter (X)": Twitter,
-  YouTube: Youtube,
-};
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -25,8 +19,12 @@ export function Footer() {
               for English teachers — from lesson plans to career roadmaps.
             </p>
             <div className="mt-6 max-w-sm">
-              <p className="mb-2 flex items-center gap-2 text-sm font-medium text-[var(--color-ink)]">
-                <Sparkle size={14} /> Get teaching tips & new tools
+              <p className="mb-1 flex items-center gap-2 text-sm font-semibold text-[var(--color-ink)]">
+                <Sparkle size={14} /> The Hire Wire
+              </p>
+              <p className="mb-3 text-xs leading-relaxed text-[var(--color-faint)]">
+                Our free TEFL jobs briefing — who&apos;s hiring, what they pay, and when
+                applications close. One email every two weeks, no spam.
               </p>
               <NewsletterForm />
             </div>
@@ -94,7 +92,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-[var(--color-border)] pt-8 md:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8 md:flex-row">
           <p className="text-xs text-[var(--color-faint)]">
             © {year} {SITE.name}. All rights reserved.
           </p>
@@ -108,23 +106,6 @@ export function Footer() {
                 {l.label}
               </Link>
             ))}
-          </div>
-          <div className="flex items-center gap-3">
-            {FOOTER_NAV.social.map((s) => {
-              const Icon = socialIcon[s.label] ?? Instagram;
-              return (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/5 text-[var(--color-muted)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              );
-            })}
           </div>
         </div>
       </div>

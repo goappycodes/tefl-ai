@@ -13,9 +13,9 @@ import {
   TOOLS,
   toolsByGroup,
   GROUP_LABELS,
-  SITE,
   type ToolGroup,
 } from "@/lib/site";
+import { HeaderAuth } from "@/components/layout/HeaderAuth";
 
 const GROUP_ORDER: ToolGroup[] = [
   "new-teachers",
@@ -150,17 +150,7 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={`${SITE.checkoutBase}/my-account/`}
-            className="text-sm font-medium text-[var(--color-muted)] transition hover:text-[var(--color-ink)]"
-          >
-            Log in
-          </a>
-          <Link href="/courses" className="btn btn-primary !py-2.5 !px-5 text-sm">
-            Get Certified
-          </Link>
-        </div>
+        <HeaderAuth variant="desktop" />
 
         {/* Mobile toggle */}
         <button
@@ -182,7 +172,7 @@ export function Header() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             style={{ willChange: "transform, opacity" }}
-            className="fixed inset-0 top-16 z-[90] overflow-y-auto overscroll-contain bg-[rgba(6,9,18,0.98)] px-5 pb-24 pt-4 backdrop-blur-xl lg:hidden"
+            className="fixed inset-x-0 top-16 z-[90] h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain bg-[var(--color-bg)] px-5 pb-24 pt-5 lg:hidden"
           >
             <nav className="flex flex-col gap-1">
               {PRIMARY_NAV.filter((i) => !i.mega).map((item) => (
@@ -223,14 +213,7 @@ export function Header() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 flex flex-col gap-3 px-1">
-              <a href={`${SITE.checkoutBase}/my-account/`} className="btn btn-ghost">
-                Log in
-              </a>
-              <Link href="/courses" className="btn btn-primary">
-                Get Certified
-              </Link>
-            </div>
+            <HeaderAuth variant="mobile" />
           </motion.div>
         )}
       </AnimatePresence>

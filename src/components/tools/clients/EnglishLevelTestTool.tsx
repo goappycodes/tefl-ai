@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type {
   EltQuestion,
   EltAnalysisResult,
@@ -123,6 +124,7 @@ export function EnglishLevelTestTool() {
   if (result) {
     return (
       <div className="mx-auto max-w-4xl space-y-6">
+        <ScrollIntoViewOnMount />
         {/* Hero score */}
         <div className="surface-card overflow-hidden p-0">
           <div className="relative bg-[var(--brand-gradient-soft)] p-8 text-center md:p-10">

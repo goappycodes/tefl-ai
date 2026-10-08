@@ -13,6 +13,7 @@ import {
 import { useAiTool } from "@/lib/useAiTool";
 import { Field, Select, RadioCards, SubmitButton } from "@/components/ui/form";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type { JobReadinessResult } from "@/lib/tools/job-readiness-checker";
 
 const TEFL_CERT = [
@@ -243,6 +244,7 @@ export function JobReadinessCheckerTool() {
 
         {!loading && data && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div>
                 <h2 className="text-xl font-semibold">Your TEFL readiness assessment</h2>

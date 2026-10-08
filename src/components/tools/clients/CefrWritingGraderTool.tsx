@@ -14,6 +14,7 @@ import {
 import { useAiTool } from "@/lib/useAiTool";
 import { Field, TextInput, TextArea, RadioCards, SubmitButton } from "@/components/ui/form";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type { CefrWritingResult } from "@/lib/tools/cefr-writing-grader";
 
 const PROFILES = [
@@ -168,6 +169,7 @@ export function CefrWritingGraderTool() {
 
         {!loading && data && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div className="flex items-center gap-4">
                 <span className="flex h-16 min-w-16 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#0170b9,#64be9f)] px-4 text-3xl font-extrabold tracking-wide text-white shadow-[0_6px_18px_rgba(1,112,185,0.35)]">

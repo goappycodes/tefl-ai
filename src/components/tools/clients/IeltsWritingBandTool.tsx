@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import { GraduationCap, AlertCircle, Loader2, AlertTriangle, Info } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
+import { SITE } from "@/lib/site";
 import { Field, TextArea, Select, RadioCards, SubmitButton } from "@/components/ui/form";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type {
   IeltsWritingBandResult,
   IeltsCriterion,
@@ -272,6 +274,21 @@ export function IeltsWritingBandTool() {
           </div>
         )}
 
+        {taskType === "1" && (
+          <figure className="space-y-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${SITE.checkoutBase}${TASK1_QUESTIONS[task1Index].image}`}
+              alt={`${TASK1_QUESTIONS[task1Index].type} — IELTS Task 1 visual`}
+              className="mx-auto max-h-80 w-full rounded-xl border border-[var(--color-border)] bg-white object-contain p-3"
+              loading="lazy"
+            />
+            <figcaption className="text-center text-xs text-[var(--color-faint)]">
+              {TASK1_QUESTIONS[task1Index].type} — describe the visual above
+            </figcaption>
+          </figure>
+        )}
+
         <Field
           label="Your writing sample"
           htmlFor="writing_sample"
@@ -338,6 +355,7 @@ export function IeltsWritingBandTool() {
 
         {!loading && data && invalid && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div>
                 <h2 className="text-xl font-semibold">Unable to evaluate response</h2>
@@ -370,6 +388,7 @@ export function IeltsWritingBandTool() {
 
         {!loading && data && !invalid && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div>
                 <h2 className="text-xl font-semibold">

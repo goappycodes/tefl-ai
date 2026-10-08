@@ -5,6 +5,7 @@ import { Clapperboard, AlertCircle, Loader2, MapPin } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { Field, TextInput, RadioCards, SubmitButton } from "@/components/ui/form";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type { VlogScriptResult } from "@/lib/tools/travel-vlog-scriptwriter";
 
 const ANGLE_LABELS: Record<string, string> = {
@@ -188,6 +189,7 @@ export function VlogScriptwriterTool() {
 
         {!loading && data && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <div>
                 <h2 className="text-xl font-semibold">Your Vertical Video Script</h2>

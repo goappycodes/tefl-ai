@@ -5,6 +5,7 @@ import { Route, AlertCircle, Loader2 } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { Field, TextInput, RadioCards, SubmitButton } from "@/components/ui/form";
 import { ResultActions } from "@/components/tools/ResultActions";
+import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
 import type { CareerRoadmapResult } from "@/lib/tools/career-roadmap";
 
 const EXPERIENCE = [
@@ -199,6 +200,7 @@ export function CareerRoadmapTool() {
 
         {!loading && hasResult && (
           <div className="surface-card p-6 md:p-8">
+            <ScrollIntoViewOnMount />
             <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--color-border)] pb-5">
               <h2 className="text-xl font-semibold">Your TEFL Career Roadmap</h2>
               <ResultActions getText={resultText} onReset={reset} printTargetId="roadmap-output" />
