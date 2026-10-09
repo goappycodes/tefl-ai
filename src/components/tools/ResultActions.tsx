@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Copy, Printer, RotateCcw } from "lucide-react";
+import { scrollToToolStart } from "@/components/tools/ScrollIntoViewOnMount";
 
 export function ResultActions({
   getText,
@@ -56,7 +57,14 @@ export function ResultActions({
         <Printer className="h-4 w-4" /> Print / PDF
       </button>
       {onReset && (
-        <button type="button" onClick={onReset} className="btn btn-ghost !py-2 !px-3.5 text-sm">
+        <button
+          type="button"
+          onClick={() => {
+            onReset();
+            scrollToToolStart();
+          }}
+          className="btn btn-ghost !py-2 !px-3.5 text-sm"
+        >
           <RotateCcw className="h-4 w-4" /> New
         </button>
       )}

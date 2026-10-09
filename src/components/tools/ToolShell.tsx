@@ -60,8 +60,10 @@ export function ToolShell({
         </div>
       </section>
 
-      {/* Tool body */}
-      <section className="container-tai mt-12">{children}</section>
+      {/* Tool body — id="tool-start" is the scroll target for reset ("New") */}
+      <section id="tool-start" className="container-tai mt-12 scroll-mt-24">
+        {children}
+      </section>
 
       {/* Related tools */}
       <section className="container-tai mt-28">

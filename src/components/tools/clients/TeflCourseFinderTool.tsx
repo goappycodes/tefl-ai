@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useAiTool } from "@/lib/useAiTool";
 import { ResultActions } from "@/components/tools/ResultActions";
-import { ScrollIntoViewOnMount } from "@/components/tools/ScrollIntoViewOnMount";
+import { ScrollIntoViewOnMount, scrollToToolStart } from "@/components/tools/ScrollIntoViewOnMount";
 import { RadioCards } from "@/components/ui/form";
 import { COURSES, courseBySlug, courseUrl, formatPrice, type Course } from "@/content/courses";
 import type { CourseFinderResult } from "@/lib/tools/tefl-course-finder";
@@ -207,8 +207,9 @@ export function TeflCourseFinderTool() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!complete) return;
+    // The loader and result each scroll themselves into view on mount
+    // (ScrollIntoViewOnMount), so no manual scroll is needed here.
     await submit(form as unknown as Record<string, unknown>);
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function resultText() {
@@ -266,7 +267,14 @@ export function TeflCourseFinderTool() {
         </div>
 
         <div className="flex justify-center">
-          <button type="button" onClick={reset} className="btn btn-ghost">
+          <button
+            type="button"
+            onClick={() => {
+              reset();
+              scrollToToolStart();
+            }}
+            className="btn btn-ghost"
+          >
             <RotateCcw className="h-4 w-4" /> Start again
           </button>
         </div>
@@ -278,6 +286,7 @@ export function TeflCourseFinderTool() {
   if (loading) {
     return (
       <div className="surface-card mx-auto flex max-w-2xl flex-col items-center justify-center gap-4 p-16 text-center">
+        <ScrollIntoViewOnMount />
         <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
           <Loader2 className="h-7 w-7 animate-spin" />
         </span>

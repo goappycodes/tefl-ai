@@ -78,8 +78,9 @@ export function EnglishLevelTestTool() {
     questions.forEach((_, i) => {
       payload[`q${i + 1}`] = answers[`q${i + 1}`] ?? "";
     });
+    // The analysing loader and the result each scroll themselves into view on
+    // mount (ScrollIntoViewOnMount), so no manual scroll is needed here.
     await analysisApi.submit(payload);
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function retake() {
@@ -363,6 +364,7 @@ export function EnglishLevelTestTool() {
   if (analysisApi.loading) {
     return (
       <div className="surface-card mx-auto flex max-w-2xl flex-col items-center justify-center gap-4 p-16 text-center">
+        <ScrollIntoViewOnMount />
         <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
         <p className="text-sm text-[var(--color-muted)]">Analysing your English level…</p>
       </div>
