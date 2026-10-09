@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Trim client JS: rewrite barrel imports to per-module imports so only the
+  // icons/animations actually used are bundled (helps TBT/LCP).
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "tefl.ai", pathname: "/wp-content/**" },

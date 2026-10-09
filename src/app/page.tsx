@@ -5,8 +5,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ToolCard } from "@/components/ui/ToolCard";
 import { CourseCard } from "@/components/ui/CourseCard";
 import { Sparkle } from "@/components/ui/Sparkle";
+import { HomeHero } from "@/components/home/HomeHero";
 import {
-  HomeHero,
   StatsRow,
   Testimonials,
   FaqAccordion,

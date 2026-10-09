@@ -346,6 +346,17 @@ body::after {
 .animate-float { animation: tai-float 7s ease-in-out infinite; }
 .animate-spin-slow { animation: tai-spin-slow 18s linear infinite; }
 
+/* Respect users who prefer reduced motion: drop entrance/looping animations
+   and reveal all content immediately. Also trims needless main-thread work. */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .rise-hero,
+  .animate-float,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}
+
 /* Above-the-fold CSS reveal — runs on first paint, no hydration needed, so
    hero content is visible immediately (faster than JS-gated animation). */
 @keyframes tai-rise {
@@ -353,6 +364,14 @@ body::after {
   to   { opacity: 1; transform: none; }
 }
 .rise { animation: tai-rise 0.6s var(--ease-out-expo) both; }
+
+/* LCP-safe reveal for the hero headline: transform only, never opacity:0, so
+   the largest text is "contentful" at first paint and LCP isn't delayed. */
+@keyframes tai-rise-solid {
+  from { transform: translateY(16px); }
+  to   { transform: none; }
+}
+.rise-hero { animation: tai-rise-solid 0.6s var(--ease-out-expo) both; }
 
 /* Top navigation progress bar ("snake" loader) */
 @keyframes tai-snake {
