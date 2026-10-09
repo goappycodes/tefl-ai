@@ -81,9 +81,9 @@ export function JobMarketExplorerTool() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,440px)_1fr]">
+    <div className="mx-auto max-w-3xl space-y-6">
       {/* Form */}
-      <form onSubmit={onSubmit} className="surface-card h-fit space-y-5 p-6 lg:sticky lg:top-24">
+      <form onSubmit={onSubmit} className="surface-card space-y-5 p-6">
         <Field label="Where do you want to teach?" htmlFor="country" required>
           <Select id="country" value={form.country} onChange={(e) => set("country", e.target.value)}>
             {Object.entries(COUNTRIES_BY_REGION).map(([region, countries]) => (
@@ -186,25 +186,13 @@ export function JobMarketExplorerTool() {
         )}
       </form>
 
-      {/* Result */}
-      <div className="min-h-[400px]">
+      {/* Result (appears below the form) */}
+      <div>
         {loading && (
           <div className="surface-card flex flex-col items-center justify-center gap-4 p-16 text-center">
+            <ScrollIntoViewOnMount />
             <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
             <p className="text-sm text-[var(--color-muted)]">Fetching job market insights…</p>
-          </div>
-        )}
-
-        {!loading && !data && (
-          <div className="surface-card flex h-full flex-col items-center justify-center gap-4 p-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <Globe2 className="h-7 w-7" />
-            </span>
-            <h3 className="text-lg font-semibold">Your job market insights appear here</h3>
-            <p className="max-w-sm text-sm text-[var(--color-muted)]">
-              Tell us where you want to teach and your profile — we&apos;ll surface demand,
-              salaries, requirements, and local considerations.
-            </p>
           </div>
         )}
 

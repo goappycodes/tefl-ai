@@ -118,9 +118,9 @@ export function EarningProjectionTool() {
   const reality = data?.reality_check;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
+    <div className="mx-auto max-w-3xl space-y-6">
       {/* Form */}
-      <form onSubmit={onSubmit} className="surface-card h-fit space-y-4 p-6 lg:sticky lg:top-24">
+      <form onSubmit={onSubmit} className="surface-card space-y-4 p-6">
         <Field label="Where do you want to teach?" htmlFor="country" required>
           <Select id="country" value={form.country} onChange={(e) => set("country", e.target.value)} required>
             <option value="">Select a country</option>
@@ -199,24 +199,12 @@ export function EarningProjectionTool() {
       </form>
 
       {/* Result */}
-      <div className="min-h-[400px]">
+      <div>
         {loading && (
           <div className="surface-card flex flex-col items-center justify-center gap-4 p-16 text-center">
+            <ScrollIntoViewOnMount />
             <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
             <p className="text-sm text-[var(--color-muted)]">Estimating your earning…</p>
-          </div>
-        )}
-
-        {!loading && !data && (
-          <div className="surface-card flex h-full flex-col items-center justify-center gap-4 p-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <Wallet className="h-7 w-7" />
-            </span>
-            <h3 className="text-lg font-semibold">Your earning projection appears here</h3>
-            <p className="max-w-sm text-sm text-[var(--color-muted)]">
-              Pick your destination and profile and we&apos;ll project your monthly earnings,
-              benefits, career timeline and a realistic market outlook.
-            </p>
           </div>
         )}
 

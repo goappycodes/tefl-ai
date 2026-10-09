@@ -198,9 +198,9 @@ export function IeltsWritingBandTool() {
   const invalid = data?.evaluation_possible === false;
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,440px)_1fr]">
+    <div className="mx-auto max-w-3xl space-y-6">
       {/* Form */}
-      <form onSubmit={onSubmit} className="surface-card h-fit space-y-5 p-6 lg:sticky lg:top-24">
+      <form onSubmit={onSubmit} className="surface-card space-y-5 p-6">
         <Field label="Task type" required>
           <RadioCards
             name="task_type"
@@ -329,26 +329,14 @@ export function IeltsWritingBandTool() {
         )}
       </form>
 
-      {/* Result */}
-      <div className="min-h-[400px]">
+      {/* Result (appears below the form) */}
+      <div>
         {loading && (
           <div className="surface-card flex flex-col items-center justify-center gap-4 p-16 text-center">
+            <ScrollIntoViewOnMount />
             <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
             <p className="text-sm text-[var(--color-muted)]">
               Estimating your IELTS writing band…
-            </p>
-          </div>
-        )}
-
-        {!loading && !data && (
-          <div className="surface-card flex h-full flex-col items-center justify-center gap-4 p-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <GraduationCap className="h-7 w-7" />
-            </span>
-            <h3 className="text-lg font-semibold">Your band estimate appears here</h3>
-            <p className="max-w-sm text-sm text-[var(--color-muted)]">
-              Paste a Task 1 or Task 2 response and get an AI-estimated band score with
-              criterion-by-criterion feedback.
             </p>
           </div>
         )}

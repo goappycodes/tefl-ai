@@ -251,9 +251,9 @@ export function CvCoverLetterTool() {
   const skillList = (list?: string[]) => (list?.length ? list.join(", ") : null);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,460px)_1fr]">
+    <div className="mx-auto max-w-3xl space-y-6">
       {/* Form */}
-      <form onSubmit={onSubmit} className="surface-card h-fit space-y-5 p-6 lg:sticky lg:top-24">
+      <form onSubmit={onSubmit} className="surface-card space-y-5 p-6">
         <SectionTitle icon={User}>Personal details</SectionTitle>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Full name" htmlFor="full_name" required>
@@ -391,24 +391,13 @@ export function CvCoverLetterTool() {
         )}
       </form>
 
-      {/* Result */}
-      <div className="min-h-[400px]">
+      {/* Result (appears below the form) */}
+      <div>
         {loading && (
           <div className="surface-card flex flex-col items-center justify-center gap-4 p-16 text-center">
+            <ScrollIntoViewOnMount />
             <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
             <p className="text-sm text-[var(--color-muted)]">Generating your professional documents…</p>
-          </div>
-        )}
-
-        {!loading && !data && (
-          <div className="surface-card flex h-full flex-col items-center justify-center gap-4 p-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <FileText className="h-7 w-7" />
-            </span>
-            <h3 className="text-lg font-semibold">Your documents appear here</h3>
-            <p className="max-w-sm text-sm text-[var(--color-muted)]">
-              Fill in your details and we&apos;ll craft a tailored TEFL CV and cover letter — ready to download and send.
-            </p>
           </div>
         )}
 

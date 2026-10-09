@@ -107,9 +107,9 @@ export function MaterialsAdaptorTool() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
+    <div className="mx-auto max-w-3xl space-y-6">
       {/* Form */}
-      <form onSubmit={onSubmit} className="surface-card h-fit space-y-4 p-6 lg:sticky lg:top-24">
+      <form onSubmit={onSubmit} className="surface-card space-y-4 p-6">
         <Field
           label="Original text"
           htmlFor="original_text"
@@ -197,24 +197,12 @@ export function MaterialsAdaptorTool() {
       </form>
 
       {/* Result */}
-      <div className="min-h-[400px]">
+      <div>
         {loading && (
           <div className="surface-card flex flex-col items-center justify-center gap-4 p-16 text-center">
+            <ScrollIntoViewOnMount />
             <Loader2 className="h-8 w-8 animate-spin text-[var(--color-accent)]" />
             <p className="text-sm text-[var(--color-muted)]">Adapting your material…</p>
-          </div>
-        )}
-
-        {!loading && !data && (
-          <div className="surface-card flex h-full flex-col items-center justify-center gap-4 p-16 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <Wand2 className="h-7 w-7" />
-            </span>
-            <h3 className="text-lg font-semibold">Your adapted materials appear here</h3>
-            <p className="max-w-sm text-sm text-[var(--color-muted)]">
-              Paste any authentic text and choose a target level — we&apos;ll return a simplified
-              version with comprehension questions and key vocabulary.
-            </p>
           </div>
         )}
 
