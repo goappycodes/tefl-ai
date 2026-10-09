@@ -54,10 +54,7 @@ export function ToolLanding({
             <DynamicIcon name={tool.icon} className="h-4 w-4" />
             {content.badge || tool.short}
           </span>
-          <h1
-            className="rise mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-[1.06] md:text-6xl"
-            style={{ animationDelay: "0.05s" }}
-          >
+          <h1 className="rise-hero mx-auto mt-6 max-w-4xl text-balance text-4xl font-bold leading-[1.06] md:text-6xl">
             {content.heroTitle}
           </h1>
           {content.heroSubtitle && (

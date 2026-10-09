@@ -2,10 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Trim client JS: rewrite barrel imports to per-module imports so only the
-  // icons/animations actually used are bundled (helps TBT/LCP).
   experimental: {
+    // Trim client JS: rewrite barrel imports to per-module imports so only the
+    // icons/animations actually used are bundled (helps TBT/LCP).
     optimizePackageImports: ["framer-motion", "lucide-react"],
+    // Inline the page's CSS into the HTML instead of a render-blocking
+    // <link>. Removes the HTML->CSS critical-path round-trip (~633ms on
+    // slow 4G) that was delaying first paint / LCP.
+    inlineCss: true,
   },
   images: {
     remotePatterns: [
