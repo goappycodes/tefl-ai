@@ -14,7 +14,8 @@ Headless: **Next.js (next.tefl.ai) = front-end**, **WordPress (tefl.ai) = backen
 - **Content pages** — AI Tools overview, Courses catalogue (links into WP enrolment), Blog (headless WP + post pages via root catch-all), Contact (CF7 REST), Certificate verification ×2 (WP `/me`-style endpoint), AI-Skilled Certificate, Survey, Terms (extracted from WP template), Privacy + Future-of-AI Report (full WP content, no email gate), 404, sitemap, robots.
 - **Footer** — "The Hire Wire" MailerLite newsletter; social links removed; accreditation badges.
 - **Infra** — Vercel project, all env vars set (secrets as sensitive), GitHub auto-deploy on push to main, `next.tefl.ai` public domain, WP mu-plugin (`teflai-rest.php`) for cert verification + `/me` session.
-- **UX** — clear option selection, pointer cursors, fullscreen mobile menu, readable blog content on dark theme, header reflects WP login state (when same cookie context).
+- **UX** — clear option selection, pointer cursors, fullscreen mobile menu, readable blog content on dark theme, header reflects WP login state (when same cookie context), reset ("New") scrolls back to the form top.
+- **Performance / AI-SEO** — `inlineCss` + `optimizePackageImports` (framer-motion, lucide) and LCP-safe hero for faster first paint; `llms.txt` added for AI crawlers.
 
 ---
 
