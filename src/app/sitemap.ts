@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE, TOOLS } from "@/lib/site";
-import { getAllPostSlugs } from "@/lib/wp";
+import { getAllPostSlugs, getCategories } from "@/lib/wp";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE.url.replace(/\/$/, "");
@@ -49,5 +49,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /* WP unreachable at build time — skip post URLs */
   }
 
-  return [...staticRoutes, ...toolRoutes, ...postRoutes];
+  let categoryRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const cats = await getCategories();
+    categoryRoutes = cats.map((c) => ({
+      url: `${base}/category/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    }));
+  } catch {
+    /* WP unreachable — skip */
+  }
+
+  return [...staticRoutes, ...toolRoutes, ...postRoutes, ...categoryRoutes];
 }

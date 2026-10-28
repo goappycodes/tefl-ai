@@ -150,6 +150,7 @@ export async function getPosts(opts: {
   page?: number;
   perPage?: number;
   category?: string;
+  tag?: string;
   search?: string;
 } = {}): Promise<{ posts: WpPost[]; total: number; totalPages: number }> {
   const params = new URLSearchParams({
@@ -161,6 +162,7 @@ export async function getPosts(opts: {
   });
   if (opts.search) params.set("search", opts.search);
   if (opts.category) params.set("categories", opts.category);
+  if (opts.tag) params.set("tags", opts.tag);
 
   try {
     const res = await fetch(`${WP_BASE}/wp/v2/posts?${params}`, {
@@ -202,6 +204,35 @@ export async function getCategories(): Promise<{ id: number; name: string; slug:
   );
   return raw ? raw.filter((c) => c.slug !== "uncategorized") : [];
 }
+
+export interface WpTerm {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  count: number;
+}
+
+export async function getTermBySlug(
+  taxonomy: "categories" | "tags",
+  slug: string
+): Promise<WpTerm | null> {
+  const raw = await wpFetch<
+    Array<{ id: number; name: string; slug: string; description: string; count: number }>
+  >(`/wp/v2/${taxonomy}?slug=${encodeURIComponent(slug)}`);
+  if (!raw || !raw.length) return null;
+  const t = raw[0];
+  return {
+    id: t.id,
+    name: decode(t.name),
+    slug: t.slug,
+    description: decode(t.description || ""),
+    count: t.count,
+  };
+}
+
+export const getCategoryBySlug = (slug: string) => getTermBySlug("categories", slug);
+export const getTagBySlug = (slug: string) => getTermBySlug("tags", slug);
 
 export async function getAllPostSlugs(): Promise<string[]> {
   const raw = await wpFetch<Array<{ slug: string }>>(`/wp/v2/posts?per_page=100&_fields=slug`);

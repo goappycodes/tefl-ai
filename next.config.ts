@@ -29,6 +29,22 @@ const nextConfig: NextConfig = {
       // LearnDash course pages stay on WordPress — forward course detail URLs
       // to the WP/commerce host (swap via NEXT_PUBLIC_CHECKOUT_BASE_URL).
       { source: "/courses/:slug", destination: `${wpHost}/courses/:slug/`, permanent: false },
+
+      // Commerce + account journeys stay on WordPress/WooCommerce — forward
+      // these paths to the WP host so they don't render empty once Next is the
+      // origin for tefl.ai.
+      { source: "/cart", destination: `${wpHost}/cart/`, permanent: false },
+      { source: "/cart/:path*", destination: `${wpHost}/cart/`, permanent: false },
+      { source: "/checkout", destination: `${wpHost}/checkout/`, permanent: false },
+      { source: "/checkout/:path*", destination: `${wpHost}/checkout/:path*`, permanent: false },
+      { source: "/my-account", destination: `${wpHost}/my-account/`, permanent: false },
+      { source: "/my-account/:path*", destination: `${wpHost}/my-account/:path*`, permanent: false },
+      { source: "/registration", destination: `${wpHost}/registration/`, permanent: false },
+      { source: "/registration-success", destination: `${wpHost}/registration-success/`, permanent: false },
+      { source: "/reset-password", destination: `${wpHost}/reset-password/`, permanent: false },
+
+      // Ported WordPress "Redirection" plugin rules (preserve old-URL SEO).
+      { source: "/ai-in-tefl", destination: "/ai-in-english-language-teaching", permanent: true },
     ];
   },
 };

@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { NavProgress } from "@/components/layout/NavProgress";
+import { Analytics, GtmNoScript } from "@/components/Analytics";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -46,6 +47,11 @@ export const metadata: Metadata = {
     title: SITE.title,
     description: SITE.description,
   },
+  verification: {
+    google:
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+      "j7fotmxoC-4isug3Gh5AbsIcKq2HrAjzr_IwVI0c8QM",
+  },
 };
 
 export default function RootLayout({
@@ -58,6 +64,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://tefl.ai" />
       </head>
       <body>
+        <GtmNoScript />
+        <Analytics />
         <NavProgress />
         <a
           href="#main"

@@ -27,7 +27,7 @@ export function ToolShell({
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden pt-28 md:pt-32">
+      <section className="relative overflow-hidden pt-24 md:pt-28">
         <div className="container-tai">
           <nav className="flex items-center gap-1.5 text-xs text-[var(--color-faint)]">
             <Link href="/" className="hover:text-[var(--color-muted)]">Home</Link>
@@ -37,31 +37,36 @@ export function ToolShell({
             <span className="text-[var(--color-muted)]">{tool.short}</span>
           </nav>
 
-          <div className="mt-8 flex flex-col items-start gap-5">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
-              <TIcon name={tool.icon} className="h-7 w-7" />
-            </span>
-            <div>
-              <span className="eyebrow flex">
-                <Sparkles className="h-3.5 w-3.5" /> {tool.audience}
+          <div className="mt-6 flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl bg-[var(--brand-gradient-soft)] text-[var(--color-accent)]">
+                <TIcon name={tool.icon} className="h-6 w-6" />
               </span>
-              <h1 className="mt-3 max-w-3xl text-balance text-3xl font-bold leading-[1.1] md:text-5xl">
-                {tool.title}
-              </h1>
-              <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted)] md:text-lg">
-                {tool.description}
-              </p>
+              <div>
+                <span className="eyebrow flex">
+                  <Sparkles className="h-3.5 w-3.5" /> {tool.audience}
+                </span>
+                <h1 className="mt-1 text-balance text-2xl font-bold leading-tight md:text-3xl">
+                  {tool.title}
+                </h1>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3 text-sm text-[var(--color-muted)]">
+            <div className="flex flex-wrap gap-2 text-sm text-[var(--color-muted)]">
               <span className="chip"><Zap className="h-4 w-4" /> Instant results</span>
               <span className="chip"><ShieldCheck className="h-4 w-4" /> Free · no sign-up</span>
+              <Link
+                href={`/${tool.slug}`}
+                className="chip transition hover:border-[var(--color-accent)]"
+              >
+                About this tool →
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Tool body — id="tool-start" is the scroll target for reset ("New") */}
-      <section id="tool-start" className="container-tai mt-12 scroll-mt-24">
+      <section id="tool-start" className="container-tai mt-8 scroll-mt-24">
         {children}
       </section>
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
-import { getPosts } from "@/lib/wp";
+import { getPosts, getCategories } from "@/lib/wp";
 import { BlogCard } from "@/components/content/BlogCard";
 import { Sparkle } from "@/components/ui/Sparkle";
 
@@ -21,7 +21,10 @@ export default async function BlogPage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
-  const { posts, totalPages } = await getPosts({ page, perPage: 13 });
+  const [{ posts, totalPages }, categories] = await Promise.all([
+    getPosts({ page, perPage: 13 }),
+    getCategories(),
+  ]);
 
   const hasPosts = posts.length > 0;
   const featured = page === 1 && hasPosts ? posts[0] : null;
@@ -43,7 +46,23 @@ export default async function BlogPage({
         </div>
       </section>
 
-      <section className="container-tai mt-14">
+      {categories.length > 0 && (
+        <section className="container-tai mt-10">
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.slice(0, 10).map((c) => (
+              <Link
+                key={c.id}
+                href={`/category/${c.slug}`}
+                className="chip transition hover:border-[var(--color-accent)]"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="container-tai mt-10">
         {!hasPosts ? (
           <div className="surface-card p-16 text-center text-[var(--color-muted)]">
             <p>Posts are loading from our library. Please check back shortly.</p>
