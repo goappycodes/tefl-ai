@@ -21,6 +21,8 @@ Headless: **Next.js (next.tefl.ai) = front-end**, **WordPress (tefl.ai) = backen
 
 ## 🔧 Pending — prioritized
 
+> **Done 2026-10-28:** Analytics (Ahrefs + GTM-ready + Google verification), commerce/auth → WP redirects, WP Redirection rule ported, Word (.doc) downloads on tools, blog category/tag archives, trimmed `/tool` hero. Remaining below.
+
 ### P0 — before production cutover (parity / launch)
 1. **Analytics & Search Console** — NONE in the Next app yet. WP had Google Tag Manager, Ahrefs Analytics, and a Google site-verification meta. Add GTM, Ahrefs, and verification (per-domain) or tracking/SEO data is lost at cutover.
 2. **Commerce/auth path redirects** — add Next redirects → WP host for `/cart`, `/checkout`, `/my-account`, `/registration`, `/registration-success`, `/reset-password` (today only `/shop`, `/profile`, `/home`, `/courses/:slug` are handled). Without these, those paths hit the catch-all and render empty once Next is the origin.
